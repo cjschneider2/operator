@@ -1,4 +1,4 @@
-<header class="px-4 sm:px-6 lg:px-8">
+<header class="px-4 sm:px-6 lg:px-8 bg-orange-200">
   <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
     <div class="flex items-center gap-4">
       <a href="/">
@@ -7,9 +7,107 @@
     </div>
   </div>
 </header>
-<main class="px-4 py-20 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-2xl">
-    <.flash_group flash={@flash} />
-    <%= @inner_content %>
+<div
+  id="outer-container"
+  class="relative h-screen flex overflow-hidden bg-white"
+>
+<!-- mobile side-bar -->
+<!--
+<div
+  id="mobile-sidebar-container"
+  class="bg-lime-200 fixed inset-0 flex z-40 "
+  aria-modal="true"
+  style="display:none"
+  role="region"
+>
+  <div class="fixed inset-0 bg-gray-600 bg-opacity-75 phx-click={hide_mobile_sidebar()}"></div>
+  <div
+    id="mobile-sidebar"
+    class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-lime-300 min-h-screen"
+  >
+    <div class="absolute top-0 right-0 -mr-12 pt-2">
+      <button
+        type="button"
+        id="hide-mobile-sidebar"
+        aria-expanded="true"
+        aria-controls="mobile-sidebar"
+        class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+      >
+        <span class="sr-only">Close sidebar</span>
+        <.icon name="hero-x-mark-solid" class="text-white h-8 w-8" />
+      </button>
+    </div>
+    <div class="flex-shrink-0 flex items-center px-4">
+      home-page-link
+    </div>
+    <div class="mt-5 flex-1 h-0 overflow-y-auto">
+      outer content
+      <nav class="px-2">
+        Some Side-bar content here
+      </nav>
+    </div>
   </div>
-</main>
+  <div class="flex-shrink-0 w-14" aria-hidden="true">
+-->
+  <!-- Dummy element to force sidebar to shrink to fit close icon -->
+  <!--
+  </div>
+</div>
+-->
+<!-- desktop side-bar -->
+<div class="hidden lg:flex lg:flex-shrink-0" role="region">
+  <div class="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
+    <div class="flex items-center flex-shrink-0 px-6">
+      <div>
+        <span class="h-8 w-auto text-2xl ml-1 font-bold">
+         Operator
+        </span>
+      </div>
+    </div>
+    <div class="px-3 mt-6">
+      <.icon name="hero-identification" class="w-8 h-8 text-blue-600 -mt-2 inline-block outlined" />
+      user-info-link
+    </div>
+    <!-- Sidebar component, swap this element with another sidebar if you like -->
+    <div class="flex flex-col flex-1">
+      <!-- Sidebar Search -->
+      <div class="px-3 mt-5">
+        <label for="search" class="sr-only">Search</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            aria-hidden="true"
+          >
+          <.icon name="hero-magnifying-glass" />
+          </div>
+          <input
+            type="text"
+            name="search"
+            id="search"
+            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-9 sm:text-sm border-gray-300 rounded-md"
+            placeholder="Search"
+          />
+        </div>
+      </div>
+      <!-- Navigation -->
+      <nav class="px-3 mt-6">
+        <div>
+          navigation link 1
+        </div>
+        <div>
+          navigation link 2
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- main page content -->
+<div class="flex flex-col flex-1 w-0 overflow:hidden bg-amber-200">
+  <.flash_group flash={@flash} />
+  <main class="flex-1 relative z-0">
+    <%= @inner_content %>
+  </main>
+</div>
+
+</div>
