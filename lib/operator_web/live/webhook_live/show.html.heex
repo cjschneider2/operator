@@ -1,0 +1,28 @@
+<.header>
+  Webhook <%= @webhook.id %>
+  <:subtitle>This is a webhook record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/webhook/#{@webhook}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit webhook</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @webhook.name %></:item>
+  <:item title="Description"><%= @webhook.description %></:item>
+  <:item title="Action"><%= @webhook.action_id %></:item>
+</.list>
+
+<.back navigate={~p"/webhook"}>Back to webhook</.back>
+
+<.modal :if={@live_action == :edit} id="webhook-modal" show on_cancel={JS.patch(~p"/webhook/#{@webhook}")}>
+  <.live_component
+    module={OperatorWeb.WebhookLive.FormComponent}
+    id={@webhook.id}
+    title={@page_title}
+    action={@live_action}
+    webhook={@webhook}
+    patch={~p"/webhook/#{@webhook}"}
+  />
+</.modal>

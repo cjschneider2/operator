@@ -1,0 +1,43 @@
+<.header>
+  Listing Webhook
+  <:actions>
+    <.link patch={~p"/webhook/new"}>
+      <.button>New Webhook</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="webhook"
+  rows={@streams.webhook_collection}
+  row_click={fn {_id, webhook} -> JS.navigate(~p"/webhook/#{webhook}") end}
+>
+  <:col :let={{_id, webhook}} label="Name"><%= webhook.name %></:col>
+  <:col :let={{_id, webhook}} label="Description"><%= webhook.description %></:col>
+  <:col :let={{_id, webhook}} label="Action"><%= webhook.action_id %></:col>
+  <:action :let={{_id, webhook}}>
+    <div class="sr-only">
+      <.link navigate={~p"/webhook/#{webhook}"}>Show</.link>
+    </div>
+    <.link patch={~p"/webhook/#{webhook}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, webhook}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: webhook.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="webhook-modal" show on_cancel={JS.patch(~p"/webhook")}>
+  <.live_component
+    module={OperatorWeb.WebhookLive.FormComponent}
+    id={@webhook.id || :new}
+    title={@page_title}
+    action={@live_action}
+    webhook={@webhook}
+    patch={~p"/webhook"}
+  />
+</.modal>

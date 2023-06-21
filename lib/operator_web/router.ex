@@ -18,6 +18,13 @@ defmodule OperatorWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/webhook", WebhookLive.Index, :index
+    live "/webhook/new", WebhookLive.Index, :new
+    live "/webhook/:id/edit", WebhookLive.Index, :edit
+
+    live "/webhook/:id", WebhookLive.Show, :show
+    live "/webhook/:id/show/edit", WebhookLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
